@@ -11,8 +11,9 @@ describe('Operaciones CRUD de cafes', () => {
   });
 
   it('Delete /cafes/:id status code 404 al intentar eliminar un café con un id que no existe', async () => {
-    const eliminarCafe = { 'id': 9 };
-    const response = await request(server).delete('/cafes').send(eliminarCafe);
+    const jwt = 'token';
+    const eliminarCafe = 5;
+    const response = await request(server).delete(`/cafes/${eliminarCafe}`).set('Authorization', jwt);
     const statusCode = response.statusCode;
     expect(statusCode).toBe(404);
   })
@@ -25,7 +26,7 @@ describe('Operaciones CRUD de cafes', () => {
   })
 
   it('Put /cafes status code 200 al actualizar un cafe con id que no existe', async () => {
-    const actualizarCafe = { 'id': 9 };
+    const actualizarCafe = { 'id': 5 };
     const response = await request(server).put('/cafes/3').send(actualizarCafe);  
     const status = response.statusCode;
     expect(status).toBe(400);
